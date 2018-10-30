@@ -10,7 +10,8 @@ CREATE TABLE events (
   id SERIAL PRIMARY KEY,
   product_name VARCHAR, 
   product_description VARCHAR,
-  price Decimal
+  price Decimal,
+  dateCreated timestamp without time zone DEFAULT now()
 );
 
 INSERT INTO events (product_name, product_description, price)
