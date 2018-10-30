@@ -1,16 +1,17 @@
 const db = require('./index')
 
-function getEvents (req, res, next) {
+function getEvents(req, res, next) {
   db
-    .one('SELECT * FROM events', {
-      username: req.user.username
-    })
+    .any('SELECT * FROM events')
     .then(data => {
       res.status(200).json({ user: data })
     })
+    .catch((err) => {
+      res.status(500).json({ status: `failed${err}` })
+    })
 }
 
-function newEvent (req, res, next) {
+function newEvent(req, res, next) {
   db
     .none('INSERT INTO events(product_name, price, product_description)', {
       product_name: req.body.product_name,
