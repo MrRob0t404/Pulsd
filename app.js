@@ -25,7 +25,7 @@ app.use('/', indexRouter)
 app.use('/users', usersRouter)
 
 // Runs on an hourly schedule
-cron.schedule('* * 1 * *', function (req, res, next) {
+cron.schedule('1 * * * *', function (req, res, next) {
   // Checks for new entries in the database every hour
   db
     .any(
