@@ -2,8 +2,14 @@
 
 ## Getting Started
 ---
+if you're running this project on your local machiene follow the following instructions 
 run npm install on the backend and client folders to install all of the dependencies used in this project 
-after dependencies have been installed, run npm start on both backend and client folders 
+after dependencies have been installed, run npm start on both backend and client folders
+ 
+
+## Live Link 
+---
+https://limitless-woodland-44893.herokuapp.com/
 
 #### Report 
 Needed more clarification on the syndication process*. I looked up different websites where Pulsd events can be reposted. Here are websites I looked at: 
