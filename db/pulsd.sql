@@ -11,7 +11,7 @@ CREATE TABLE events (
   product_name VARCHAR, 
   product_description VARCHAR,
   price Decimal,
-  dateCreated timestamp without time zone DEFAULT now()
+  date_created timestamp DEFAULT (current_timestamp AT TIME ZONE 'EST')
 );
 
 INSERT INTO events (product_name, product_description, price)

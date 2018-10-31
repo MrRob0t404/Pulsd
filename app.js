@@ -8,7 +8,7 @@ const fs = require('fs')
 
 var indexRouter = require('./routes/index')
 var usersRouter = require('./routes/users')
-const db = require('./db/index')
+const db = require('./db/queries')
 
 var app = express()
 
@@ -23,19 +23,6 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 app.use('/', indexRouter)
 app.use('/users', usersRouter)
-
-// Runs on an hourly schedule
-cron.schedule('1 * * * *', function (req, res, next) {
-  // Checks for new entries in the database every hour
-  db
-    .any(
-      ' SELECT * FROM `INFORMATION_SCHEMA`.`TABLES` WHERE DATE_SUB(NOW(), INTERVAL 1 HOUR) < `UPDATE_TIME`'
-    )
-    .then(data => {
-      res.status(200).json({ user: data })
-      // Code for syndication
-    })
-})
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

@@ -1,12 +1,14 @@
 const db = require('./index')
 const cron = require('node-cron')
+const axios = require('axios');
 
 cron.schedule('* * * * *', function (req, res, next) {
   // Checks for new entries in the database every hour
   db
-    .any('SELECT * FROM events')
+    .any(`SELECT *
+    FROM events
+    WHERE EXTRACT(HOUR FROM date_created) = (Extract(HOUR FROM CURRENT_TIMESTAMP) - 1)`)
     .then(data => {
-      // res.status(200).json({ user: data })
       console.log(data)
     })
     .catch((err) => {
