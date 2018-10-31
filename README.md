@@ -27,5 +27,6 @@ This app was builton Postgres, Express, ReactJS, Node.js, HTML/CSS, and the foll
 
 ### Author's Notes (Challenges)
 ---
-Postgresql decided to lock me out and I can't run psql commands. This problem took majority of my time solving.  
-(still has yet to be solved)
+Postgresql decided to lock me out and I can't run psql commands. This problem took majority of my time solving. 
+I had no knowledge of a cron-job prior to this and I had to do research on how to leverage 
+Learning on how to leverage Eventbrites API 

@@ -2,8 +2,8 @@ const db = require('./index')
 const cron = require('node-cron')
 const axios = require('axios');
 
-//adds events to eventbright 
-cron.schedule('* * * * *', function (req, res, next) {
+//adds events to eventbright and schedules the call to eventbrites api with new data 
+cron.schedule('* */1 * * *', function (req, res, next) {
   // Checks for new entries in the database every hour
   db
     .any(`SELECT *
@@ -31,7 +31,6 @@ cron.schedule('* * * * *', function (req, res, next) {
       })
     })
     .catch((err) => {
-      // res.status(500).json({ status: `failed${err}` })
       console.log(err)
     })
   console.log('running every minute')
