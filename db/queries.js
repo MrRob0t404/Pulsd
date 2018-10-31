@@ -2,6 +2,7 @@ const db = require('./index')
 const cron = require('node-cron')
 const axios = require('axios');
 
+//adds events to eventbright 
 cron.schedule('* * * * *', function (req, res, next) {
   // Checks for new entries in the database every hour
   db
@@ -10,6 +11,24 @@ cron.schedule('* * * * *', function (req, res, next) {
     WHERE EXTRACT(HOUR FROM date_created) = (Extract(HOUR FROM CURRENT_TIMESTAMP) - 1)`)
     .then(data => {
       console.log(data)
+      data.map((ele) => {
+        axios.post(`eventbriteapi.com/v3/organizations/${process.env.userID}/events/?token=${process.env.apiKey}`, {
+          'event.name.html': ele.product_name,
+          'event.description.html': ele.product_description,
+          'event.start.utc': ele.starttime,
+          'event.start.timezone': ele.timezone,
+          'event.end.utc': ele.endtime,
+          'event.end.timezone': ele.timezone,
+          'event.currency': 'USD'
+        })
+          .then((response) => {
+            console.log(response);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+
+      })
     })
     .catch((err) => {
       // res.status(500).json({ status: `failed${err}` })
