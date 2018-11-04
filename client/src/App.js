@@ -81,8 +81,8 @@ class App extends Component {
         Select an end time: <input type="time" name="endTime" onChange={this.handleChange}></input>
         <br></br>
         Select Timezone: <TimezonePicker
-          value="Asia/Yerevan"
-          onChange={timezone => this.setState({ timezone: timezone })}
+          value={this.state.timezone}
+          onChange={timezone => this.setState({ timezone: timezone, value: timezone })}
           inputProps={{
             placeholder: 'Select Timezone...',
             name: 'timezone',
