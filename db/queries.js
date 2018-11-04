@@ -3,14 +3,13 @@ const cron = require('node-cron')
 const axios = require('axios');
 
 //adds events to eventbright and schedules the call to eventbrites api with new data 
-cron.schedule('* */1 * * *', function (req, res, next) {
+cron.schedule('*/1 * * * *', function (req, res, next) {
   // Checks for new entries in the database every hour
   db
     .any(`SELECT *
     FROM events
-    WHERE EXTRACT(HOUR FROM date_created) = (Extract(HOUR FROM CURRENT_TIMESTAMP) - 1)`)
+    WHERE events.date_created >= NOW() - INTERVAL '1' HOUR`)
     .then(data => {
-      console.log(data)
       data.map((ele) => {
         axios.post(`eventbriteapi.com/v3/organizations/${process.env.userID}/events/?token=${process.env.apiKey}`, {
           'event.name.html': ele.product_name,
@@ -35,6 +34,7 @@ cron.schedule('* */1 * * *', function (req, res, next) {
     })
   console.log('running every minute')
 })
+
 
 function getEvents(req, res, next) {
   db
