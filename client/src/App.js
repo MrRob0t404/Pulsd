@@ -16,12 +16,14 @@ class App extends Component {
   }
 
   submit = () => {
-    const { eventName, timezone, description, price } = this.state
+    const { eventName, timezone, description, price, starttime, endtime } = this.state
     axios
       .post('/submitEvent', {
         product_name: eventName,
-        description: description,
+        product_description: description,
         price: price,
+        starttime: starttime,
+        endtime: endtime,
         timezone: timezone
       })
       .then(() => {
@@ -30,12 +32,14 @@ class App extends Component {
           eventName: '',
           description: '',
           price: 0,
-          timezone: ''
+          timezone: '', 
+          starttime: '', 
+          endtime: ''
         })
       })
       .catch(err => {
         this.setState({
-          message: err
+          message: 'Something went wrong try again later'
         })
       })
   }
@@ -51,6 +55,7 @@ class App extends Component {
     return (
       <div>
         Event Name: <input
+          value={this.state.eventName}
           type='text'
           placeholder='Event Name '
           onChange={this.handleChange}
@@ -59,6 +64,7 @@ class App extends Component {
         {' '}
         <br />
         Description: <input
+          value={this.state.description}
           type='text'
           placeholder='Description'
           onChange={this.handleChange}
@@ -67,6 +73,7 @@ class App extends Component {
         <br />
         To the nearest cent:
         <input
+          value={this.state.price}
           type='number'
           min='0'
           step='0.01'
@@ -76,9 +83,9 @@ class App extends Component {
           name='price'
         />
         <br />
-        Select a start time: <input type="time" name="startTime" onChange={this.handleChange}></input>
+        Select a start time: <input type="time" name="starttime" onChange={this.handleChange}></input>
         <br />
-        Select an end time: <input type="time" name="endTime" onChange={this.handleChange}></input>
+        Select an end time: <input type="time" name="endtime" onChange={this.handleChange}></input>
         <br></br>
         Select Timezone: <TimezonePicker
           value={this.state.timezone}
