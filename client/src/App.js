@@ -16,16 +16,17 @@ class App extends Component {
   }
 
   submit = () => {
-    const { eventName, timezone, description, price, starttime, endtime, startdate, enddate} = this.state
+    const { eventName, timezone, description, price, starttime, endtime, startdate, enddate } = this.state
+    //ISO8601 date format 
+    let eventStart = startdate + 'T' + starttime
+    let eventEnd = enddate + 'T' + endtime
     axios
       .post('/submitEvent', {
         product_name: eventName,
         product_description: description,
         price: price,
-        startdate: startdate,
-        enddate: enddate,
-        starttime: starttime,
-        endtime: endtime,
+        starttime: eventStart,
+        endtime: eventEnd,
         timezone: timezone
       })
       .then(() => {
