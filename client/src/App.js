@@ -16,12 +16,14 @@ class App extends Component {
   }
 
   submit = () => {
-    const { eventName, timezone, description, price, starttime, endtime } = this.state
+    const { eventName, timezone, description, price, starttime, endtime, startdate, enddate} = this.state
     axios
       .post('/submitEvent', {
         product_name: eventName,
         product_description: description,
         price: price,
+        startdate: startdate,
+        enddate: enddate,
         starttime: starttime,
         endtime: endtime,
         timezone: timezone
@@ -32,8 +34,8 @@ class App extends Component {
           eventName: '',
           description: '',
           price: 0,
-          timezone: '', 
-          starttime: '', 
+          timezone: '',
+          starttime: '',
           endtime: ''
         })
       })
@@ -81,7 +83,9 @@ class App extends Component {
           data-number-stepfactor='100'
           onChange={this.handleChange}
           name='price'
-        />
+        /> <br />
+        Start Date:<input type='date' onChange={this.handleChange} name='startdate' />  <br />
+        End Date:<input type='date' onChange={this.handleChange} name='enddate' />
         <br />
         Select a start time: <input type="time" name="starttime" onChange={this.handleChange}></input>
         <br />

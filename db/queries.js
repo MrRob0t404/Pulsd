@@ -4,7 +4,7 @@ const axios = require('axios');
 require('dotenv').config()
 
 //adds events to eventbright and schedules the call to eventbrites api with new data 
-cron.schedule('* * * * * *', function (req, res, next) {
+cron.schedule('* */1 * * * *', function (req, res, next) {
   // Checks for new entries in the database every hour
   db
     .any(`SELECT *
